@@ -2,9 +2,10 @@
 //
 // Conteneur principal de l'application : gère la navigation basse fixe
 // à 4 icônes (Accueil, Recherche, Favori, Profil), et transmet les
-// informations de thème au Profil.
+// informations de thème et de langue au Profil.
 
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../screens/home_screen.dart';
 import '../screens/search_screen.dart';
 import '../screens/favorites_screen.dart';
@@ -13,11 +14,15 @@ import '../screens/profile_screen.dart';
 class MainNavigation extends StatefulWidget {
   final bool modeSombreActif;
   final ValueChanged<bool> onToggleTheme;
+  final String langueActuelle;
+  final ValueChanged<String> onChangerLangue;
 
   const MainNavigation({
     super.key,
     required this.modeSombreActif,
     required this.onToggleTheme,
+    required this.langueActuelle,
+    required this.onChangerLangue,
   });
 
   @override
@@ -55,36 +60,43 @@ class _MainNavigationState extends State<MainNavigation> {
           onFavorisTap: _goToFavoris,
           modeSombreActif: widget.modeSombreActif,
           onToggleTheme: widget.onToggleTheme,
+          langueActuelle: widget.langueActuelle,
+          onChangerLangue: widget.onChangerLangue,
         ),
       ];
 
   @override
   Widget build(BuildContext context) {
+    // Lot de test du multilingue (Bloc 1) : ces 4 libellés sont les seuls
+    // pour l'instant à passer par AppLocalizations. Le reste de l'app
+    // (autres écrans) sera extrait dans un second temps.
+    final l10n = AppLocalizations.of(context);
+
     return Scaffold(
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) => setState(() => _currentIndex = index),
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Accueil',
+            icon: const Icon(Icons.home_outlined),
+            activeIcon: const Icon(Icons.home),
+            label: l10n.navAccueil,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined),
-            activeIcon: Icon(Icons.search),
-            label: 'Recherche',
+            icon: const Icon(Icons.search_outlined),
+            activeIcon: const Icon(Icons.search),
+            label: l10n.navRecherche,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.favorite_border),
-            activeIcon: Icon(Icons.favorite),
-            label: 'Favori',
+            icon: const Icon(Icons.favorite_border),
+            activeIcon: const Icon(Icons.favorite),
+            label: l10n.navFavoris,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
-            label: 'Profil',
+            icon: const Icon(Icons.person_outline),
+            activeIcon: const Icon(Icons.person),
+            label: l10n.navProfil,
           ),
         ],
       ),

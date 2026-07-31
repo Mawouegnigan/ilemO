@@ -12,6 +12,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: any
 
   cupertino_icons: ^1.0.8
   firebase_core: ^4.12.1
@@ -31,6 +34,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   uses-material-design: true
+  generate: true
   assets:
     - assets/images/logo.png
 
@@ -43,4 +47,3 @@ flutter_launcher_icons:
     image_path: "assets/icon/ilemo_icon_1024.png"
     background_color: "#FAFAF8"
     theme_color: "#1B4B7A"
-

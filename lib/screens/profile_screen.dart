@@ -2,6 +2,7 @@
 //
 // Écran Profil — version standard (Lot 4), adapté au mode sombre (28/07/2026).
 // + tuiles "Aide" et "Politique de confidentialité" (30/07/2026).
+// + sélecteur de langue (30/07/2026) — infrastructure multilingue, Bloc 1.
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
@@ -14,13 +15,24 @@ class ProfileScreen extends StatelessWidget {
   final VoidCallback onFavorisTap;
   final bool modeSombreActif;
   final ValueChanged<bool> onToggleTheme;
+  final String langueActuelle; // code : 'fr', 'en', 'yo', 'guw'
+  final ValueChanged<String> onChangerLangue;
 
   const ProfileScreen({
     super.key,
     required this.onFavorisTap,
     required this.modeSombreActif,
     required this.onToggleTheme,
+    required this.langueActuelle,
+    required this.onChangerLangue,
   });
+
+  static const Map<String, String> _nomsLangues = {
+    'fr': 'Français',
+    'en': 'English',
+    'yo': 'Yorùbá (bêta)',
+    'guw': 'Gungbe (bêta)',
+  };
 
   void _partagerApp() {
     // TODO : remplacer par le vrai lien Play Store / App Store une fois
@@ -31,6 +43,51 @@ class ProfileScreen extends StatelessWidget {
             'de l\'Église du Christianisme Céleste au Bénin !',
       ),
     );
+  }
+
+  Future<void> _choisirLangue(BuildContext context) async {
+    final choix = await showModalBottomSheet<String>(
+      context: context,
+      backgroundColor: context.colorSurface,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 12),
+              Text(
+                'Choisir la langue',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: context.colorTextPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              for (final entry in _nomsLangues.entries)
+                RadioListTile<String>(
+                  value: entry.key,
+                  groupValue: langueActuelle,
+                  activeColor: context.colorPrimary,
+                  title: Text(
+                    entry.value,
+                    style: TextStyle(color: context.colorTextPrimary),
+                  ),
+                  onChanged: (value) => Navigator.of(context).pop(value),
+                ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        );
+      },
+    );
+
+    if (choix != null && choix != langueActuelle) {
+      onChangerLangue(choix);
+    }
   }
 
   @override
@@ -93,6 +150,14 @@ class ProfileScreen extends StatelessWidget {
                     onTap: onFavorisTap,
                   );
                 },
+              ),
+              const SizedBox(height: 12),
+
+              _ProfileTile(
+                icon: Icons.language,
+                title: 'Langue',
+                subtitle: _nomsLangues[langueActuelle] ?? 'Français',
+                onTap: () => _choisirLangue(context),
               ),
               const SizedBox(height: 12),
 

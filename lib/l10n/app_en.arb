@@ -1,0 +1,8 @@
+{
+  "@@locale": "en",
+
+  "navAccueil": "Home",
+  "navRecherche": "Search",
+  "navFavoris": "Favorites",
+  "navProfil": "Profile"
+}

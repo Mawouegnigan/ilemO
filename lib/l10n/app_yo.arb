@@ -1,0 +1,23 @@
+{
+  "@@locale": "yo",
+
+  "navAccueil": "Ilé",
+  "@navAccueil": {
+    "description": "TRADUCTION A FAIRE RELIRE : 'Ilé' = maison/accueil en yoruba"
+  },
+
+  "navRecherche": "Àwárí",
+  "@navRecherche": {
+    "description": "TRADUCTION A FAIRE RELIRE : 'Àwárí' = recherche en yoruba"
+  },
+
+  "navFavoris": "Ààyò",
+  "@navFavoris": {
+    "description": "TRADUCTION A FAIRE RELIRE : 'Ààyò' = préféré/favori en yoruba"
+  },
+
+  "navProfil": "Àkọsílẹ̀",
+  "@navProfil": {
+    "description": "TRADUCTION A FAIRE RELIRE : 'Àkọsílẹ̀' proposé pour profil ; un emprunt 'Profaili' est aussi courant et peut être préféré"
+  }
+}

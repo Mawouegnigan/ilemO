@@ -1,0 +1,23 @@
+{
+  "@@locale": "guw",
+
+  "navAccueil": "Xwé",
+  "@navAccueil": {
+    "description": "PROPOSITION FAIBLE CONFIANCE - A VALIDER PAR UN LOCUTEUR NATIF : 'xwé' = maison en gungbe (proche du fon), utilisé ici par analogie pour 'accueil'"
+  },
+
+  "navRecherche": "Recherche",
+  "@navRecherche": {
+    "description": "PAS DE TRADUCTION FIABLE DISPONIBLE - placeholder en français en attendant une traduction native. Ne pas publier tel quel."
+  },
+
+  "navFavoris": "Favori",
+  "@navFavoris": {
+    "description": "PAS DE TRADUCTION FIABLE DISPONIBLE - placeholder en français en attendant une traduction native. Ne pas publier tel quel."
+  },
+
+  "navProfil": "Profil",
+  "@navProfil": {
+    "description": "PAS DE TRADUCTION FIABLE DISPONIBLE - placeholder en français en attendant une traduction native. Ne pas publier tel quel."
+  }
+}

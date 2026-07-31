@@ -1,0 +1,22 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for Yoruba (`yo`).
+class AppLocalizationsYo extends AppLocalizations {
+  AppLocalizationsYo([String locale = 'yo']) : super(locale);
+
+  @override
+  String get navAccueil => 'Ilé';
+
+  @override
+  String get navRecherche => 'Àwárí';
+
+  @override
+  String get navFavoris => 'Ààyò';
+
+  @override
+  String get navProfil => 'Àkọsílẹ̀';
+}

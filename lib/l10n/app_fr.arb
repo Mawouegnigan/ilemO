@@ -1,0 +1,23 @@
+{
+  "@@locale": "fr",
+
+  "navAccueil": "Accueil",
+  "@navAccueil": {
+    "description": "Libellé de l'onglet Accueil dans la barre de navigation"
+  },
+
+  "navRecherche": "Recherche",
+  "@navRecherche": {
+    "description": "Libellé de l'onglet Recherche dans la barre de navigation"
+  },
+
+  "navFavoris": "Favori",
+  "@navFavoris": {
+    "description": "Libellé de l'onglet Favoris dans la barre de navigation"
+  },
+
+  "navProfil": "Profil",
+  "@navProfil": {
+    "description": "Libellé de l'onglet Profil dans la barre de navigation"
+  }
+}
