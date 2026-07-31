@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "202361448439",
+    "project_id": "ilemo-app",
+    "storage_bucket": "ilemo-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202361448439:android:87823d5b63be4e87e530f2",
+        "android_client_info": {
+          "package_name": "com.example.ilemo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUkjUGuxhiv41ozOR8PAutBmnq_UHLMnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
