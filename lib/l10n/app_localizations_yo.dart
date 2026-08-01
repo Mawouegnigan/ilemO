@@ -379,4 +379,59 @@ class AppLocalizationsYo extends AppLocalizations {
   @override
   String get privacySection8Body =>
       'Pour toute question concernant cette politique de confidentialité ou l\'application ilemO, vous pouvez nous contacter via les informations de contact disponibles dans la section \"À propos\" de l\'application.';
+
+  @override
+  String get profileRetour => 'Fi èrò mi hàn';
+
+  @override
+  String get profileRetourSubtitle => 'Ràn wá lọ́wọ́ láti mú ilemO dára síi';
+
+  @override
+  String get retourTitle => 'Fi èrò mi hàn';
+
+  @override
+  String get retourIntro =>
+      'Èrò rẹ ń ràn wá lọ́wọ́ láti mú ilemO dára síi. Kọ́ǹtákì rẹ kìí ṣe dandan, a ó sì lò ó nìkan bí o bá fẹ́ kí a dá ọ lóhùn.';
+
+  @override
+  String get retourNoteLabel => 'Ìdíye';
+
+  @override
+  String get retourMessageLabel => 'Ọ̀rọ̀ rẹ';
+
+  @override
+  String get retourMessageHint =>
+      'Pín ìrírí rẹ, àbá kan, tàbí ìṣòro tí o pàdé…';
+
+  @override
+  String get retourMessageRequired => 'Jọ̀wọ́ kọ ọ̀rọ̀ kan kí o tó fi ránṣẹ́.';
+
+  @override
+  String get retourNomLabel => 'Orúkọ (kìí ṣe dandan)';
+
+  @override
+  String get retourContactLabel => 'Kọ́ǹtákì (kìí ṣe dandan)';
+
+  @override
+  String get retourContactHint => 'Í-méèlì tàbí nọ́mbà fóònù';
+
+  @override
+  String get retourSubmitButton => 'Fi ránṣẹ́';
+
+  @override
+  String get retourSendingButton => 'Ń fi ránṣẹ́…';
+
+  @override
+  String get retourSuccessTitle => 'A dúpẹ́!';
+
+  @override
+  String get retourSuccessMessage =>
+      'A ti fi èrò rẹ ránṣẹ́ dáadáa. A dúpẹ́ lọ́wọ́ rẹ fún ìrànlọ́wọ́ láti mú ilemO dára síi.';
+
+  @override
+  String get retourSuccessClose => 'Ti';
+
+  @override
+  String get retourErrorSending =>
+      'Àṣìṣe kan ṣẹlẹ̀ nígbà fífi ránṣẹ́. Jọ̀wọ́ tún gbìyànjú.';
 }

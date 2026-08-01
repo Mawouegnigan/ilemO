@@ -743,6 +743,108 @@ abstract class AppLocalizations {
   /// In fr, this message translates to:
   /// **'Pour toute question concernant cette politique de confidentialité ou l\'application ilemO, vous pouvez nous contacter via les informations de contact disponibles dans la section \"À propos\" de l\'application.'**
   String get privacySection8Body;
+
+  /// No description provided for @profileRetour.
+  ///
+  /// In fr, this message translates to:
+  /// **'Donner mon avis'**
+  String get profileRetour;
+
+  /// No description provided for @profileRetourSubtitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Aidez-nous à améliorer ilemO'**
+  String get profileRetourSubtitle;
+
+  /// No description provided for @retourTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Donner mon avis'**
+  String get retourTitle;
+
+  /// No description provided for @retourIntro.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre avis nous aide à améliorer ilemO. Vos coordonnées sont optionnelles et ne seront utilisées que si vous souhaitez une réponse.'**
+  String get retourIntro;
+
+  /// No description provided for @retourNoteLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Note'**
+  String get retourNoteLabel;
+
+  /// No description provided for @retourMessageLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre message'**
+  String get retourMessageLabel;
+
+  /// No description provided for @retourMessageHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'Partagez votre expérience, une suggestion, un problème rencontré…'**
+  String get retourMessageHint;
+
+  /// No description provided for @retourMessageRequired.
+  ///
+  /// In fr, this message translates to:
+  /// **'Veuillez écrire un message avant d\'envoyer.'**
+  String get retourMessageRequired;
+
+  /// No description provided for @retourNomLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Nom (optionnel)'**
+  String get retourNomLabel;
+
+  /// No description provided for @retourContactLabel.
+  ///
+  /// In fr, this message translates to:
+  /// **'Contact (optionnel)'**
+  String get retourContactLabel;
+
+  /// No description provided for @retourContactHint.
+  ///
+  /// In fr, this message translates to:
+  /// **'E-mail ou téléphone'**
+  String get retourContactHint;
+
+  /// No description provided for @retourSubmitButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Envoyer'**
+  String get retourSubmitButton;
+
+  /// No description provided for @retourSendingButton.
+  ///
+  /// In fr, this message translates to:
+  /// **'Envoi en cours…'**
+  String get retourSendingButton;
+
+  /// No description provided for @retourSuccessTitle.
+  ///
+  /// In fr, this message translates to:
+  /// **'Merci !'**
+  String get retourSuccessTitle;
+
+  /// No description provided for @retourSuccessMessage.
+  ///
+  /// In fr, this message translates to:
+  /// **'Votre avis a bien été envoyé. Merci de nous aider à améliorer ilemO.'**
+  String get retourSuccessMessage;
+
+  /// No description provided for @retourSuccessClose.
+  ///
+  /// In fr, this message translates to:
+  /// **'Fermer'**
+  String get retourSuccessClose;
+
+  /// No description provided for @retourErrorSending.
+  ///
+  /// In fr, this message translates to:
+  /// **'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.'**
+  String get retourErrorSending;
 }
 
 class _AppLocalizationsDelegate

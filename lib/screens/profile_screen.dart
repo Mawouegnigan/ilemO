@@ -3,10 +3,8 @@
 // Écran Profil — version standard (Lot 4), adapté au mode sombre (28/07/2026).
 // + tuiles "Aide" et "Politique de confidentialité" (30/07/2026).
 // + sélecteur de langue (30/07/2026) — infrastructure multilingue, Bloc 1.
-// + extraction multilingue complète (Bloc 2, 31/07/2026). Les noms de
-// langues (_nomsLangues) restent volontairement non traduits : convention
-// standard des sélecteurs de langue (chaque langue s'affiche dans son
-// propre nom natif).
+// + extraction multilingue complète (Bloc 2, 31/07/2026).
+// + tuile "Donner mon avis" (01/08/2026).
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
@@ -15,6 +13,7 @@ import '../services/favoris_service.dart';
 import '../theme/app_theme.dart';
 import 'aide_screen.dart';
 import 'privacy_policy_screen.dart';
+import 'retour_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   final VoidCallback onFavorisTap;
@@ -180,6 +179,18 @@ class ProfileScreen extends StatelessWidget {
                 title: l10n.profilePartagerApp,
                 subtitle: l10n.profilePartagerAppSubtitle,
                 onTap: () => _partagerApp(l10n),
+              ),
+              const SizedBox(height: 12),
+
+              _ProfileTile(
+                icon: Icons.star_border,
+                title: l10n.profileRetour,
+                subtitle: l10n.profileRetourSubtitle,
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => const RetourScreen()),
+                  );
+                },
               ),
               const SizedBox(height: 12),
 

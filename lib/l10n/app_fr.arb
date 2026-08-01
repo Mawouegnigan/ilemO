@@ -136,5 +136,23 @@
   "privacySection7Title": "7. Enfants",
   "privacySection7Body": "ilemO n'est pas destinée à un usage ciblé par des enfants et ne collecte sciemment aucune donnée personnelle concernant des mineurs.",
   "privacySection8Title": "8. Contact",
-  "privacySection8Body": "Pour toute question concernant cette politique de confidentialité ou l'application ilemO, vous pouvez nous contacter via les informations de contact disponibles dans la section \"À propos\" de l'application."
+  "privacySection8Body": "Pour toute question concernant cette politique de confidentialité ou l'application ilemO, vous pouvez nous contacter via les informations de contact disponibles dans la section \"À propos\" de l'application.",
+
+  "profileRetour": "Donner mon avis",
+  "profileRetourSubtitle": "Aidez-nous à améliorer ilemO",
+  "retourTitle": "Donner mon avis",
+  "retourIntro": "Votre avis nous aide à améliorer ilemO. Vos coordonnées sont optionnelles et ne seront utilisées que si vous souhaitez une réponse.",
+  "retourNoteLabel": "Note",
+  "retourMessageLabel": "Votre message",
+  "retourMessageHint": "Partagez votre expérience, une suggestion, un problème rencontré…",
+  "retourMessageRequired": "Veuillez écrire un message avant d'envoyer.",
+  "retourNomLabel": "Nom (optionnel)",
+  "retourContactLabel": "Contact (optionnel)",
+  "retourContactHint": "E-mail ou téléphone",
+  "retourSubmitButton": "Envoyer",
+  "retourSendingButton": "Envoi en cours…",
+  "retourSuccessTitle": "Merci !",
+  "retourSuccessMessage": "Votre avis a bien été envoyé. Merci de nous aider à améliorer ilemO.",
+  "retourSuccessClose": "Fermer",
+  "retourErrorSending": "Une erreur est survenue lors de l'envoi. Veuillez réessayer."
 }

@@ -387,4 +387,60 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get privacySection8Body =>
       'Pour toute question concernant cette politique de confidentialité ou l\'application ilemO, vous pouvez nous contacter via les informations de contact disponibles dans la section \"À propos\" de l\'application.';
+
+  @override
+  String get profileRetour => 'Donner mon avis';
+
+  @override
+  String get profileRetourSubtitle => 'Aidez-nous à améliorer ilemO';
+
+  @override
+  String get retourTitle => 'Donner mon avis';
+
+  @override
+  String get retourIntro =>
+      'Votre avis nous aide à améliorer ilemO. Vos coordonnées sont optionnelles et ne seront utilisées que si vous souhaitez une réponse.';
+
+  @override
+  String get retourNoteLabel => 'Note';
+
+  @override
+  String get retourMessageLabel => 'Votre message';
+
+  @override
+  String get retourMessageHint =>
+      'Partagez votre expérience, une suggestion, un problème rencontré…';
+
+  @override
+  String get retourMessageRequired =>
+      'Veuillez écrire un message avant d\'envoyer.';
+
+  @override
+  String get retourNomLabel => 'Nom (optionnel)';
+
+  @override
+  String get retourContactLabel => 'Contact (optionnel)';
+
+  @override
+  String get retourContactHint => 'E-mail ou téléphone';
+
+  @override
+  String get retourSubmitButton => 'Envoyer';
+
+  @override
+  String get retourSendingButton => 'Envoi en cours…';
+
+  @override
+  String get retourSuccessTitle => 'Merci !';
+
+  @override
+  String get retourSuccessMessage =>
+      'Votre avis a bien été envoyé. Merci de nous aider à améliorer ilemO.';
+
+  @override
+  String get retourSuccessClose => 'Fermer';
+
+  @override
+  String get retourErrorSending =>
+      'Une erreur est survenue lors de l\'envoi. Veuillez réessayer.';
 }

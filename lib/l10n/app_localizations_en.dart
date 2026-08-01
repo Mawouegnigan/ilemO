@@ -381,4 +381,59 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get privacySection8Body =>
       'For any questions regarding this privacy policy or the ilemO app, you can contact us via the contact information available in the app\'s \"About\" section.';
+
+  @override
+  String get profileRetour => 'Give feedback';
+
+  @override
+  String get profileRetourSubtitle => 'Help us improve ilemO';
+
+  @override
+  String get retourTitle => 'Give feedback';
+
+  @override
+  String get retourIntro =>
+      'Your feedback helps us improve ilemO. Your contact details are optional and will only be used if you\'d like a reply.';
+
+  @override
+  String get retourNoteLabel => 'Rating';
+
+  @override
+  String get retourMessageLabel => 'Your message';
+
+  @override
+  String get retourMessageHint =>
+      'Share your experience, a suggestion, an issue you encountered…';
+
+  @override
+  String get retourMessageRequired => 'Please write a message before sending.';
+
+  @override
+  String get retourNomLabel => 'Name (optional)';
+
+  @override
+  String get retourContactLabel => 'Contact (optional)';
+
+  @override
+  String get retourContactHint => 'Email or phone number';
+
+  @override
+  String get retourSubmitButton => 'Send';
+
+  @override
+  String get retourSendingButton => 'Sending…';
+
+  @override
+  String get retourSuccessTitle => 'Thank you!';
+
+  @override
+  String get retourSuccessMessage =>
+      'Your feedback has been sent. Thank you for helping us improve ilemO.';
+
+  @override
+  String get retourSuccessClose => 'Close';
+
+  @override
+  String get retourErrorSending =>
+      'Something went wrong while sending. Please try again.';
 }

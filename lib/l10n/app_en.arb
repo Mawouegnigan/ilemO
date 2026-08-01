@@ -121,5 +121,23 @@
   "privacySection7Title": "7. Children",
   "privacySection7Body": "ilemO is not intended for targeted use by children and does not knowingly collect any personal data about minors.",
   "privacySection8Title": "8. Contact",
-  "privacySection8Body": "For any questions regarding this privacy policy or the ilemO app, you can contact us via the contact information available in the app's \"About\" section."
+  "privacySection8Body": "For any questions regarding this privacy policy or the ilemO app, you can contact us via the contact information available in the app's \"About\" section.",
+
+  "profileRetour": "Give feedback",
+  "profileRetourSubtitle": "Help us improve ilemO",
+  "retourTitle": "Give feedback",
+  "retourIntro": "Your feedback helps us improve ilemO. Your contact details are optional and will only be used if you'd like a reply.",
+  "retourNoteLabel": "Rating",
+  "retourMessageLabel": "Your message",
+  "retourMessageHint": "Share your experience, a suggestion, an issue you encountered…",
+  "retourMessageRequired": "Please write a message before sending.",
+  "retourNomLabel": "Name (optional)",
+  "retourContactLabel": "Contact (optional)",
+  "retourContactHint": "Email or phone number",
+  "retourSubmitButton": "Send",
+  "retourSendingButton": "Sending…",
+  "retourSuccessTitle": "Thank you!",
+  "retourSuccessMessage": "Your feedback has been sent. Thank you for helping us improve ilemO.",
+  "retourSuccessClose": "Close",
+  "retourErrorSending": "Something went wrong while sending. Please try again."
 }

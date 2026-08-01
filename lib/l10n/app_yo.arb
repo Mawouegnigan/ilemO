@@ -136,5 +136,23 @@
   "privacySection7Title": "7. Àwọn ọmọdé",
   "privacySection7Body": "ilemO n'est pas destinée à un usage ciblé par des enfants et ne collecte sciemment aucune donnée personnelle concernant des mineurs.",
   "privacySection8Title": "8. Kọ́ǹtákì",
-  "privacySection8Body": "Pour toute question concernant cette politique de confidentialité ou l'application ilemO, vous pouvez nous contacter via les informations de contact disponibles dans la section \"À propos\" de l'application."
+  "privacySection8Body": "Pour toute question concernant cette politique de confidentialité ou l'application ilemO, vous pouvez nous contacter via les informations de contact disponibles dans la section \"À propos\" de l'application.",
+
+  "profileRetour": "Fi èrò mi hàn",
+  "profileRetourSubtitle": "Ràn wá lọ́wọ́ láti mú ilemO dára síi",
+  "retourTitle": "Fi èrò mi hàn",
+  "retourIntro": "Èrò rẹ ń ràn wá lọ́wọ́ láti mú ilemO dára síi. Kọ́ǹtákì rẹ kìí ṣe dandan, a ó sì lò ó nìkan bí o bá fẹ́ kí a dá ọ lóhùn.",
+  "retourNoteLabel": "Ìdíye",
+  "retourMessageLabel": "Ọ̀rọ̀ rẹ",
+  "retourMessageHint": "Pín ìrírí rẹ, àbá kan, tàbí ìṣòro tí o pàdé…",
+  "retourMessageRequired": "Jọ̀wọ́ kọ ọ̀rọ̀ kan kí o tó fi ránṣẹ́.",
+  "retourNomLabel": "Orúkọ (kìí ṣe dandan)",
+  "retourContactLabel": "Kọ́ǹtákì (kìí ṣe dandan)",
+  "retourContactHint": "Í-méèlì tàbí nọ́mbà fóònù",
+  "retourSubmitButton": "Fi ránṣẹ́",
+  "retourSendingButton": "Ń fi ránṣẹ́…",
+  "retourSuccessTitle": "A dúpẹ́!",
+  "retourSuccessMessage": "A ti fi èrò rẹ ránṣẹ́ dáadáa. A dúpẹ́ lọ́wọ́ rẹ fún ìrànlọ́wọ́ láti mú ilemO dára síi.",
+  "retourSuccessClose": "Ti",
+  "retourErrorSending": "Àṣìṣe kan ṣẹlẹ̀ nígbà fífi ránṣẹ́. Jọ̀wọ́ tún gbìyànjú."
 }
