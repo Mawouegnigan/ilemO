@@ -1,8 +1,10 @@
 // lib/screens/favorites_screen.dart
 //
-// Écran Favoris, adapté au mode sombre (28/07/2026).
+// Écran Favoris, adapté au mode sombre (28/07/2026) et au multilingue
+// (Bloc 2, 31/07/2026).
 
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../models/paroisse.dart';
 import '../services/favoris_service.dart';
 import '../services/paroisse_service.dart';
@@ -23,11 +25,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Favoris')),
+      appBar: AppBar(title: Text(l10n.favoritesTitle)),
       body: StreamBuilder<List<Paroisse>>(
         stream: _paroisseService.streamParoisses(),
         builder: (context, snapshotParoisses) {
+          if (snapshotParoisses.hasError) {
+            return Center(child: Text(l10n.errorWithMessage('${snapshotParoisses.error}')));
+          }
           if (!snapshotParoisses.hasData) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -54,8 +61,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         Icon(Icons.favorite_border, size: 48, color: context.colorTextSecondary),
                         const SizedBox(height: 16),
                         Text(
-                          'Aucune paroisse favorite pour l\'instant.\n'
-                          'Ajoutez-en depuis la recherche en appuyant sur le cœur.',
+                          l10n.favoritesEmptyMessage,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: context.colorTextSecondary),
                         ),

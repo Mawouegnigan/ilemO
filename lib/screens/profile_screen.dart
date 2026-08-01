@@ -3,9 +3,14 @@
 // Écran Profil — version standard (Lot 4), adapté au mode sombre (28/07/2026).
 // + tuiles "Aide" et "Politique de confidentialité" (30/07/2026).
 // + sélecteur de langue (30/07/2026) — infrastructure multilingue, Bloc 1.
+// + extraction multilingue complète (Bloc 2, 31/07/2026). Les noms de
+// langues (_nomsLangues) restent volontairement non traduits : convention
+// standard des sélecteurs de langue (chaque langue s'affiche dans son
+// propre nom natif).
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import '../l10n/app_localizations.dart';
 import '../services/favoris_service.dart';
 import '../theme/app_theme.dart';
 import 'aide_screen.dart';
@@ -34,18 +39,15 @@ class ProfileScreen extends StatelessWidget {
     'guw': 'Gungbe (bêta)',
   };
 
-  void _partagerApp() {
+  void _partagerApp(AppLocalizations l10n) {
     // TODO : remplacer par le vrai lien Play Store / App Store une fois
     // l'application publiée (Lot 6).
     SharePlus.instance.share(
-      ShareParams(
-        text: 'Découvrez ilemO, l\'application qui centralise les paroisses '
-            'de l\'Église du Christianisme Céleste au Bénin !',
-      ),
+      ShareParams(text: l10n.profileShareText),
     );
   }
 
-  Future<void> _choisirLangue(BuildContext context) async {
+  Future<void> _choisirLangue(BuildContext context, AppLocalizations l10n) async {
     final choix = await showModalBottomSheet<String>(
       context: context,
       backgroundColor: context.colorSurface,
@@ -59,7 +61,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 12),
               Text(
-                'Choisir la langue',
+                l10n.profileChooseLangueTitle,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -93,9 +95,10 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final FavorisService favorisService = FavorisService();
+    final l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Profil')),
+      appBar: AppBar(title: Text(l10n.profileTitle)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
@@ -120,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Utilisateur ilemO',
+                      l10n.profileUserName,
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w600,
@@ -129,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Connexion non requise pour le moment',
+                      l10n.profileConnexionNotice,
                       style: TextStyle(fontSize: 12, color: context.colorTextSecondary),
                     ),
                   ],
@@ -143,10 +146,10 @@ class ProfileScreen extends StatelessWidget {
                   final count = snapshot.data?.length ?? 0;
                   return _ProfileTile(
                     icon: Icons.favorite_border,
-                    title: 'Mes favoris',
+                    title: l10n.profileMesFavoris,
                     subtitle: count == 0
-                        ? 'Aucune paroisse enregistrée'
-                        : '$count paroisse${count > 1 ? 's' : ''} enregistrée${count > 1 ? 's' : ''}',
+                        ? l10n.profileFavorisNone
+                        : l10n.profileFavorisCount(count),
                     onTap: onFavorisTap,
                   );
                 },
@@ -155,16 +158,16 @@ class ProfileScreen extends StatelessWidget {
 
               _ProfileTile(
                 icon: Icons.language,
-                title: 'Langue',
-                subtitle: _nomsLangues[langueActuelle] ?? 'Français',
-                onTap: () => _choisirLangue(context),
+                title: l10n.profileLangue,
+                subtitle: _nomsLangues[langueActuelle] ?? _nomsLangues['fr']!,
+                onTap: () => _choisirLangue(context, l10n),
               ),
               const SizedBox(height: 12),
 
               _ProfileTile(
                 icon: Icons.info_outline,
-                title: 'À propos d\'ilemO',
-                subtitle: 'Version 1.0.0 — Bénin',
+                title: l10n.profileAPropos,
+                subtitle: l10n.profileVersionSubtitle,
                 onTap: () => showDialog(
                   context: context,
                   builder: (_) => const _AboutDialog(),
@@ -174,16 +177,16 @@ class ProfileScreen extends StatelessWidget {
 
               _ProfileTile(
                 icon: Icons.share_outlined,
-                title: 'Partager l\'app',
-                subtitle: 'Faites connaître ilemO autour de vous',
-                onTap: _partagerApp,
+                title: l10n.profilePartagerApp,
+                subtitle: l10n.profilePartagerAppSubtitle,
+                onTap: () => _partagerApp(l10n),
               ),
               const SizedBox(height: 12),
 
               _ProfileTile(
                 icon: Icons.help_outline,
-                title: 'Aide',
-                subtitle: 'Comment utiliser l\'application',
+                title: l10n.profileAide,
+                subtitle: l10n.profileAideSubtitle,
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const AideScreen()),
@@ -194,8 +197,8 @@ class ProfileScreen extends StatelessWidget {
 
               _ProfileTile(
                 icon: Icons.privacy_tip_outlined,
-                title: 'Politique de confidentialité',
-                subtitle: 'Comment vos données sont traitées',
+                title: l10n.profilePrivacy,
+                subtitle: l10n.profilePrivacySubtitle,
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (_) => const PrivacyPolicyScreen()),
@@ -217,7 +220,7 @@ class ProfileScreen extends StatelessWidget {
                     contentPadding: EdgeInsets.zero,
                     secondary: Icon(Icons.dark_mode_outlined, color: context.colorPrimary),
                     title: Text(
-                      'Mode sombre',
+                      l10n.profileModeSombre,
                       style: TextStyle(
                         fontSize: 14.5,
                         fontWeight: FontWeight.w500,
@@ -233,8 +236,8 @@ class ProfileScreen extends StatelessWidget {
 
               _ProfileTile(
                 icon: Icons.person_add_alt_outlined,
-                title: 'Créer un compte',
-                subtitle: 'Bientôt disponible',
+                title: l10n.profileCreerCompte,
+                subtitle: l10n.profileBientotDisponible,
                 onTap: null,
               ),
             ],
@@ -316,18 +319,20 @@ class _AboutDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return AlertDialog(
       title: const Text('ilemO'),
-      content: const Text(
-        'Application de centralisation des paroisses de l\'Église du '
-        'Christianisme Céleste.\n\nVersion 1.0.0 — Bénin\n\n'
-        'Conception et développement :\nMawouégnigan Grégoire FANGNON\n'
-        'Développeur Fullstack Web & Mobile',
+      content: Text(
+        '${l10n.aboutDialogDescription}\n\n'
+        '${l10n.profileVersionSubtitle}\n\n'
+        '${l10n.aboutDialogCredits}\n'
+        'Mawouégnigan Grégoire FANGNON\n'
+        '${l10n.aboutDialogRole}',
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Fermer'),
+          child: Text(l10n.aboutDialogClose),
         ),
       ],
     );

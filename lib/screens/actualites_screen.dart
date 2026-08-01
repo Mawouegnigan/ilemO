@@ -1,10 +1,13 @@
 // lib/screens/actualites_screen.dart
 //
 // Écran listant toutes les actualités de l'ECC (JIC, séminaires,
-// réunions, annonces nationales...).
+// réunions, annonces nationales...). Multilingue (Bloc 2, 31/07/2026) :
+// les noms de mois (_mois) restent en français pour l'instant — voir
+// note dans la conversation, à traiter avec DateFormat localisé plus tard.
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../l10n/app_localizations.dart';
 import '../models/actualite.dart';
 import '../services/actualite_service.dart';
 import '../theme/app_theme.dart';
@@ -21,15 +24,16 @@ class ActualitesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     final ActualiteService service = ActualiteService();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Actualités')),
+      appBar: AppBar(title: Text(l10n.actualitesTitle)),
       body: StreamBuilder<List<Actualite>>(
         stream: service.streamActualites(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text('Erreur : ${snapshot.error}'));
+            return Center(child: Text(l10n.errorWithMessage('${snapshot.error}')));
           }
           if (!snapshot.hasData) {
             return const Center(child: CircularProgressIndicator());
@@ -47,7 +51,7 @@ class ActualitesScreen extends StatelessWidget {
                     Icon(Icons.campaign_outlined, size: 48, color: context.colorTextSecondary),
                     const SizedBox(height: 16),
                     Text(
-                      'Aucune actualité pour le moment.',
+                      l10n.actualitesEmptyMessage,
                       style: TextStyle(color: context.colorTextSecondary),
                     ),
                   ],
@@ -104,7 +108,7 @@ class ActualitesScreen extends StatelessWidget {
                           mode: LaunchMode.externalApplication,
                         ),
                         child: Text(
-                          'En savoir plus',
+                          l10n.actualitesEnSavoirPlus,
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w600,

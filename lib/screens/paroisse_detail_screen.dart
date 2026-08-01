@@ -1,11 +1,12 @@
 // lib/screens/paroisse_detail_screen.dart
 //
-// Écran Détail paroisse, adapté au mode sombre (28/07/2026).
-// + partage des informations de la paroisse (30/07/2026).
+// Écran Détail paroisse, adapté au mode sombre (28/07/2026),
+// au partage (30/07/2026) et au multilingue (Bloc 2, 31/07/2026).
 
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../l10n/app_localizations.dart';
 import '../models/paroisse.dart';
 import '../theme/app_theme.dart';
 import '../widgets/favori_button.dart';
@@ -16,39 +17,40 @@ class ParoisseDetailScreen extends StatelessWidget {
   const ParoisseDetailScreen({super.key, required this.paroisse});
 
   Future<void> _ouvrirGoogleMaps(BuildContext context) async {
+    final l10n = AppLocalizations.of(context)!;
     final uri = Uri.parse(paroisse.localisationGoogleMaps);
     final success = await launchUrl(uri, mode: LaunchMode.externalApplication);
     if (!success && context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Impossible d\'ouvrir Google Maps.')),
+        SnackBar(content: Text(l10n.detailCannotOpenMaps)),
       );
     }
   }
 
-  void _partagerParoisse() {
+  void _partagerParoisse(AppLocalizations l10n) {
     final lignes = <String>[
       paroisse.nom,
       '${paroisse.ville}, ${paroisse.pays}',
       '',
-      'Chargé paroissial : ${paroisse.chargeParoissial}',
-      'Contact : ${paroisse.contact}',
+      '${l10n.labelChargeParoissial} : ${paroisse.chargeParoissial}',
+      '${l10n.labelContact} : ${paroisse.contact}',
     ];
 
     if (paroisse.siteWeb != null && paroisse.siteWeb!.isNotEmpty) {
-      lignes.add('Site web : ${paroisse.siteWeb}');
+      lignes.add('${l10n.labelSiteWeb} : ${paroisse.siteWeb}');
     }
 
     if (paroisse.aDateDeFete) {
-      lignes.add('Fête de la paroisse : ${paroisse.dateFeteFormatee}');
+      lignes.add('${l10n.labelFeteParoisse} : ${paroisse.dateFeteFormatee}');
     }
 
     if (paroisse.localisationGoogleMaps.isNotEmpty) {
       lignes.add('');
-      lignes.add('Itinéraire : ${paroisse.localisationGoogleMaps}');
+      lignes.add('${l10n.detailShareItineraireLabel} : ${paroisse.localisationGoogleMaps}');
     }
 
     lignes.add('');
-    lignes.add('Partagé depuis ilemO, l\'annuaire des paroisses de l\'ECC.');
+    lignes.add(l10n.detailShareFooter);
 
     SharePlus.instance.share(
       ShareParams(text: lignes.join('\n')),
@@ -57,14 +59,16 @@ class ParoisseDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(paroisse.nom),
         actions: [
           IconButton(
             icon: const Icon(Icons.share_outlined),
-            tooltip: 'Partager cette paroisse',
-            onPressed: _partagerParoisse,
+            tooltip: l10n.detailShareTooltip,
+            onPressed: () => _partagerParoisse(l10n),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 8),
@@ -93,15 +97,15 @@ class ParoisseDetailScreen extends StatelessWidget {
               ),
               const SizedBox(height: 24),
 
-              _InfoRow(icon: Icons.map_outlined, label: 'Région', value: paroisse.region),
-              _InfoRow(icon: Icons.map_outlined, label: 'Sous-région', value: paroisse.sousRegion),
-              _InfoRow(icon: Icons.location_city, label: 'Ville', value: paroisse.ville),
-              _InfoRow(icon: Icons.person_outline, label: 'Chargé paroissial', value: paroisse.chargeParoissial),
-              _InfoRow(icon: Icons.phone_outlined, label: 'Contact', value: paroisse.contact),
+              _InfoRow(icon: Icons.map_outlined, label: l10n.labelRegion, value: paroisse.region),
+              _InfoRow(icon: Icons.map_outlined, label: l10n.labelSousRegion, value: paroisse.sousRegion),
+              _InfoRow(icon: Icons.location_city, label: l10n.labelVille, value: paroisse.ville),
+              _InfoRow(icon: Icons.person_outline, label: l10n.labelChargeParoissial, value: paroisse.chargeParoissial),
+              _InfoRow(icon: Icons.phone_outlined, label: l10n.labelContact, value: paroisse.contact),
               if (paroisse.siteWeb != null && paroisse.siteWeb!.isNotEmpty)
-                _InfoRow(icon: Icons.language, label: 'Site web', value: paroisse.siteWeb!),
+                _InfoRow(icon: Icons.language, label: l10n.labelSiteWeb, value: paroisse.siteWeb!),
               if (paroisse.aDateDeFete)
-                _InfoRow(icon: Icons.celebration_outlined, label: 'Fête de la paroisse', value: paroisse.dateFeteFormatee),
+                _InfoRow(icon: Icons.celebration_outlined, label: l10n.labelFeteParoisse, value: paroisse.dateFeteFormatee),
 
               const SizedBox(height: 32),
               SizedBox(
@@ -117,9 +121,9 @@ class ParoisseDetailScreen extends StatelessWidget {
                     ),
                   ),
                   icon: const Icon(Icons.directions),
-                  label: const Text(
-                    'Go — Itinéraire',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  label: Text(
+                    l10n.detailGoButton,
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

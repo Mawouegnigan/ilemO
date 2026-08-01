@@ -1,10 +1,14 @@
 // lib/screens/search_screen.dart
 //
-// Écran Recherche complet, adapté au mode sombre (28/07/2026) : couleurs
-// via l'extension AppColorsX au lieu de constantes fixes.
+// Écran Recherche complet, adapté au mode sombre (28/07/2026) et au
+// multilingue (Bloc 2, 31/07/2026). Le filtre "Tous les pays" utilise
+// désormais un sentinel (_selectedPays == null) plutôt qu'une chaîne
+// traduite, pour ne pas casser la logique de comparaison au changement
+// de langue.
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import '../l10n/app_localizations.dart';
 import '../models/paroisse.dart';
 import '../services/paroisse_service.dart';
 import '../theme/app_theme.dart';
@@ -25,8 +29,9 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
   final ParoisseService _service = ParoisseService();
 
   String _query = '';
-  String _selectedPays = 'Tous les pays';
-  final List<String> _paysDisponibles = const ['Tous les pays', 'Bénin'];
+  // null = "tous les pays" (sentinel indépendant de la langue d'affichage)
+  String? _selectedPays;
+  final List<String> _paysDisponibles = const ['Bénin'];
 
   Position? _position;
   bool _loadingPosition = false;
@@ -46,7 +51,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
 
   List<Paroisse> _filtrer(List<Paroisse> paroisses) {
     return paroisses.where((p) {
-      final matchPays = _selectedPays == 'Tous les pays' || p.pays == _selectedPays;
+      final matchPays = _selectedPays == null || p.pays == _selectedPays;
       final q = _query.trim().toLowerCase();
       final matchRecherche = q.isEmpty ||
           p.nom.toLowerCase().contains(q) ||
@@ -77,40 +82,42 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Recherche'),
+        title: Text(l10n.searchTitle),
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: context.colorPrimary,
           labelColor: context.isDarkMode ? Colors.white : Colors.white,
           unselectedLabelColor: Colors.white70,
-          tabs: const [
-            Tab(text: 'Liste'),
-            Tab(text: 'Autour de moi'),
-            Tab(text: 'En fête'),
+          tabs: [
+            Tab(text: l10n.searchTabListe),
+            Tab(text: l10n.searchTabAutourDeMoi),
+            Tab(text: l10n.searchTabEnFete),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildListeTab(),
-          _buildAutourDeMoiTab(),
-          _buildEnFeteTab(),
+          _buildListeTab(l10n),
+          _buildAutourDeMoiTab(l10n),
+          _buildEnFeteTab(l10n),
         ],
       ),
     );
   }
 
-  Widget _buildListeTab() {
+  Widget _buildListeTab(AppLocalizations l10n) {
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
           child: Column(
             children: [
-              DropdownButtonFormField<String>(
+              DropdownButtonFormField<String?>(
                 initialValue: _selectedPays,
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.public, color: context.colorTextSecondary),
@@ -122,17 +129,21 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                     borderSide: BorderSide(color: context.colorTextSecondary),
                   ),
                 ),
-                items: _paysDisponibles
-                    .map((pays) => DropdownMenuItem(value: pays, child: Text(pays)))
-                    .toList(),
-                onChanged: (value) {
-                  if (value != null) setState(() => _selectedPays = value);
-                },
+                items: [
+                  DropdownMenuItem<String?>(
+                    value: null,
+                    child: Text(l10n.searchAllCountries),
+                  ),
+                  ..._paysDisponibles.map(
+                    (pays) => DropdownMenuItem<String?>(value: pays, child: Text(pays)),
+                  ),
+                ],
+                onChanged: (value) => setState(() => _selectedPays = value),
               ),
               const SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Rechercher par nom, ville ou région',
+                  hintText: l10n.searchHintQuery,
                   prefixIcon: Icon(Icons.search, color: context.colorTextSecondary),
                   filled: true,
                   fillColor: context.colorSurface,
@@ -151,7 +162,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
             stream: _service.streamParoisses(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                return Center(child: Text('Erreur : ${snapshot.error}'));
+                return Center(child: Text(l10n.errorWithMessage('${snapshot.error}')));
               }
               if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator());
@@ -160,7 +171,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
               final paroisses = _filtrer(snapshot.data!);
 
               if (paroisses.isEmpty) {
-                return const Center(child: Text('Aucune paroisse trouvée.'));
+                return Center(child: Text(l10n.searchNoResults));
               }
 
               return ListView.separated(
@@ -190,7 +201,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
     );
   }
 
-  Widget _buildAutourDeMoiTab() {
+  Widget _buildAutourDeMoiTab(AppLocalizations l10n) {
     if (_position == null && !_loadingPosition) {
       return Center(
         child: Padding(
@@ -201,7 +212,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
               Icon(Icons.near_me_outlined, size: 48, color: context.colorSecondary),
               const SizedBox(height: 16),
               Text(
-                'Activez votre position pour voir les paroisses les plus proches de vous.',
+                l10n.searchEnableLocationPrompt,
                 textAlign: TextAlign.center,
                 style: TextStyle(color: context.colorTextPrimary),
               ),
@@ -223,7 +234,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 ),
                 icon: const Icon(Icons.my_location),
-                label: const Text('Activer ma position'),
+                label: Text(l10n.searchEnableLocationButton),
               ),
             ],
           ),
@@ -239,7 +250,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
       stream: _service.streamParoisses(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(child: Text('Erreur : ${snapshot.error}'));
+          return Center(child: Text(l10n.errorWithMessage('${snapshot.error}')));
         }
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
@@ -248,9 +259,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
         final triees = _service.trierParDistance(snapshot.data!, _position!);
 
         if (triees.isEmpty) {
-          return const Center(
-            child: Text('Aucune paroisse avec coordonnées GPS pour le moment.'),
-          );
+          return Center(child: Text(l10n.searchNoGpsParoisses));
         }
 
         return ListView.separated(
@@ -293,14 +302,14 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
     );
   }
 
-  Widget _buildEnFeteTab() {
+  Widget _buildEnFeteTab(AppLocalizations l10n) {
     final moisActuel = DateTime.now().month;
 
     return StreamBuilder<List<Paroisse>>(
       stream: _service.streamParoisses(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return Center(child: Text('Erreur : ${snapshot.error}'));
+          return Center(child: Text(l10n.errorWithMessage('${snapshot.error}')));
         }
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
@@ -321,7 +330,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
                   Icon(Icons.celebration_outlined, size: 48, color: context.colorTextSecondary),
                   const SizedBox(height: 16),
                   Text(
-                    'Aucune paroisse en fête ce mois-ci.',
+                    l10n.searchNoEnFete,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: context.colorTextSecondary),
                   ),
@@ -340,7 +349,7 @@ class _SearchScreenState extends State<SearchScreen> with SingleTickerProviderSt
             return ListTile(
               leading: Icon(Icons.celebration, color: context.colorSecondary),
               title: Text(p.nom),
-              subtitle: Text('${p.ville}, ${p.region} — Fête le ${p.dateFeteFormatee}'),
+              subtitle: Text('${p.ville}, ${p.region} — ${l10n.searchFeteLe(p.dateFeteFormatee)}'),
               trailing: FavoriButton(paroisseId: p.id, size: 20),
               onTap: () {
                 Navigator.of(context).push(

@@ -3,6 +3,10 @@
 // Bouton cœur réutilisable : bascule l'état favori d'une paroisse
 // et se met à jour visuellement. Utilisé dans Recherche, Autour de moi,
 // et l'écran Détail.
+//
+// Correction (Bloc 2, 31/07/2026) : passage de AppColors.xxx (statique)
+// à context.colorXxx pour suivre le mode sombre, conformément à la règle
+// du projet. Aucun texte visible dans ce widget → pas de clé ARB.
 
 import 'package:flutter/material.dart';
 import '../services/favoris_service.dart';
@@ -47,7 +51,7 @@ class _FavoriButtonState extends State<FavoriButton> {
     return IconButton(
       icon: Icon(
         _estFavori ? Icons.favorite : Icons.favorite_border,
-        color: _estFavori ? AppColors.error : AppColors.textSecondary,
+        color: _estFavori ? context.colorError : context.colorTextSecondary,
         size: widget.size,
       ),
       onPressed: _basculer,

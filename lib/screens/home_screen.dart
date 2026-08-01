@@ -1,10 +1,10 @@
 // lib/screens/home_screen.dart
 //
-// Écran Accueil, adapté au mode sombre (28/07/2026) : toutes les couleurs
-// passent désormais par l'extension AppColorsX (context.colorXxx) au lieu
-// de constantes fixes, pour s'adapter automatiquement au thème actif.
+// Écran Accueil, adapté au mode sombre (28/07/2026) et au multilingue
+// (Bloc 2, 31/07/2026) : toutes les chaînes passent par AppLocalizations.
 
 import 'package:flutter/material.dart';
+import '../l10n/app_localizations.dart';
 import '../theme/app_theme.dart';
 import '../services/paroisse_service.dart';
 import '../services/actualite_service.dart';
@@ -26,30 +26,23 @@ class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
 
-  final List<_OnboardingSlide> _slides = const [
-    _OnboardingSlide(
-      icon: Icons.list_alt,
-      text: 'Parcourez l\'annuaire de toutes les paroisses',
-    ),
-    _OnboardingSlide(
-      icon: Icons.near_me_outlined,
-      text: 'Retrouvez les paroisses les plus proches de vous',
-    ),
-    _OnboardingSlide(
-      icon: Icons.favorite_border,
-      text: 'Enregistrez vos paroisses favorites',
-    ),
-  ];
-
   @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
   }
 
+  List<_OnboardingSlide> _slides(AppLocalizations l10n) => [
+        _OnboardingSlide(icon: Icons.list_alt, text: l10n.onboardingSlide1),
+        _OnboardingSlide(icon: Icons.near_me_outlined, text: l10n.onboardingSlide2),
+        _OnboardingSlide(icon: Icons.favorite_border, text: l10n.onboardingSlide3),
+      ];
+
   @override
   Widget build(BuildContext context) {
     final ParoisseService service = ParoisseService();
+    final l10n = AppLocalizations.of(context)!;
+    final slides = _slides(l10n);
 
     return Scaffold(
       body: SafeArea(
@@ -80,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Paroisses de l\'Église du Christianisme Céleste',
+                      l10n.homeChurchTagline,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 13, color: context.colorTextSecondary),
                     ),
@@ -90,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 20),
 
               Text(
-                'Bienvenue',
+                l10n.homeWelcomeTitle,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
@@ -100,8 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 6),
               Text(
-                'Retrouvez rapidement les informations et la localisation '
-                'de n\'importe quelle paroisse.',
+                l10n.homeWelcomeSubtitle,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 13.5, color: context.colorTextPrimary, height: 1.4),
               ),
@@ -125,8 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Expanded(
                           child: Text(
                             count == null
-                                ? 'Chargement des paroisses…'
-                                : '$count paroisses référencées',
+                                ? l10n.homeLoadingParoisses
+                                : l10n.homeParoissesCount(count),
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
@@ -152,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 icon: const Icon(Icons.search, size: 20),
-                label: const Text('Rechercher une paroisse'),
+                label: Text(l10n.homeSearchButton),
               ),
               const SizedBox(height: 14),
 
@@ -182,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: Text(
-                              '${enFete.length} paroisse${enFete.length > 1 ? 's' : ''} en fête ce mois-ci — à visiter !',
+                              l10n.homeEnFeteBanner(enFete.length),
                               style: TextStyle(
                                 fontSize: 13.5,
                                 fontWeight: FontWeight.w500,
@@ -215,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Actualités',
+                            l10n.sectionActualites,
                             style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w600,
@@ -227,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               MaterialPageRoute(builder: (_) => const ActualitesScreen()),
                             ),
                             child: Text(
-                              'Voir tout',
+                              l10n.homeVoirTout,
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w600,
@@ -279,10 +271,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 100,
                 child: PageView.builder(
                   controller: _pageController,
-                  itemCount: _slides.length,
+                  itemCount: slides.length,
                   onPageChanged: (index) => setState(() => _currentPage = index),
                   itemBuilder: (context, index) {
-                    final slide = _slides[index];
+                    final slide = slides[index];
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 4),
                       padding: const EdgeInsets.all(16),
@@ -315,7 +307,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Puces de pagination
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(_slides.length, (index) {
+                children: List.generate(slides.length, (index) {
                   final actif = index == _currentPage;
                   return AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
